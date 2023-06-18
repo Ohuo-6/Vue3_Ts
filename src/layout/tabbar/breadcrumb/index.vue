@@ -3,6 +3,7 @@ import useLayOutSettingStore from '@/store/modules/setting'
 import { useRoute } from 'vue-router'
 // 获取routes文件中的路由参数进行动态面包屑显示
 const $route = useRoute()
+// 获取路由信息
 // console.log($route.matched);
 
 const LayOutSettingStore = useLayOutSettingStore()

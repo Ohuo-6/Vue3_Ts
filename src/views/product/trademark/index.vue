@@ -5,6 +5,7 @@ import { onMounted, ref, reactive, nextTick } from 'vue'
 import {
   reqHasTrademark,
   reqAddOrUpdateTrademark,
+  reqDeleteTrademark,
 } from '@/api/product/trademark'
 import type {
   Records,
@@ -177,6 +178,27 @@ const rules = {
   ],
   logoUrl: [{ required: true, validator: validatorLogoUrl }],
 }
+
+// 删除 气泡确认框的回调
+const removeTradeMark = async (id: number) => {
+  let result = await reqDeleteTrademark(id)
+  if (result.code == 200) {
+    //删除成功提示信息
+    ElMessage({
+      type: 'success',
+      message: '删除品牌成功',
+    })
+    //再次获取已有的品牌数据
+    getHasTrademark(
+      trademarkArr.value.length > 1 ? pageNo.value : pageNo.value - 1,
+    )
+  } else {
+    ElMessage({
+      type: 'error',
+      message: '删除品牌失败',
+    })
+  }
+}
 </script>
 <template>
   <div>
@@ -216,19 +238,28 @@ const rules = {
               icon="Edit"
               @click="updateTrademark(row)"
             ></el-button>
-            <el-button type="danger" size="small" icon="Delete"></el-button>
+            <el-popconfirm
+              :title="`你确定要删除${row.tmName}吗?`"
+              width="180px"
+              icon="Delete"
+              @confirm="removeTradeMark(row.id)"
+            >
+              <template #reference>
+                <el-button type="danger" size="small" icon="Delete"></el-button>
+              </template>
+            </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>
       <!-- <Pagination></Pagination> -->
       <!-- 分页器组件
-                                              pagination
-                                                 v-model:current-page:设置分页器当前页码
-                                                 v-model:page-size:设置每一个展示数据条数
-                                                 page-sizes:用于设置下拉菜单数据
-                                                 background:设置分页器按钮的背景颜色
-                                                 layout:可以设置分页器六个子组件布局调整
-                                          -->
+                                                pagination
+                                                   v-model:current-page:设置分页器当前页码
+                                                   v-model:page-size:设置每一个展示数据条数
+                                                   page-sizes:用于设置下拉菜单数据
+                                                   background:设置分页器按钮的背景颜色
+                                                   layout:可以设置分页器六个子组件布局调整
+                                            -->
       <el-pagination
         @size-change="sizeChange"
         @current-change="getHasTrademark"
