@@ -3,7 +3,7 @@ import useLayOutSettingStore from '@/store/modules/setting'
 import { nextTick, ref, watch } from 'vue'
 let layOutSettingStore = useLayOutSettingStore()
 let flag = ref(true)
-// 监听仓库内部数据是否变化
+// 监听仓库内部刷新是否变化
 watch(
   () => layOutSettingStore.refsh,
   () => {
