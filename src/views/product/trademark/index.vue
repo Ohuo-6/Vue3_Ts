@@ -203,7 +203,12 @@ const removeTradeMark = async (id: number) => {
 <template>
   <div>
     <el-card class="box-card">
-      <el-button type="primary" icon="Plus" @click="addTrademark">
+      <el-button
+        type="primary"
+        icon="Plus"
+        @click="addTrademark"
+        v-has="`btn.Trademark.add`"
+      >
         添加品牌
       </el-button>
       <!-- 用于展示已有的平台数据 -->

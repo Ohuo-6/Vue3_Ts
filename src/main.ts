@@ -25,7 +25,12 @@ import router from './router'
 // 引入仓库
 import pinia from './store'
 
+// 引入自定义指令
+import { isHasButton } from '@/directive/has'
+
 const app = createApp(App)
+
+isHasButton(app)
 
 // 引入路由鉴权
 import './permisstion'
