@@ -50,6 +50,10 @@ export const constantRoute = [
     },
     component: () => import('@/views/screen/index.vue'),
   },
+]
+
+// 异步路由
+export const asyncRoute = [
   {
     path: '/acl',
     name: 'Acl',
@@ -137,15 +141,17 @@ export const constantRoute = [
       },
     ],
   },
-  {
-    // 不符合的路径
-    path: '/:pathMatch(.*)*',
-    name: 'Any',
-    meta: {
-      title: '任意路由', //左侧菜单标题
-      hidden: true, //隐藏标题
-      icon: 'Promotion',
-    },
-    redirect: '/404',
-  },
 ]
+
+// 任意路由
+export const anyRoute = {
+  // 不符合的路径
+  path: '/:pathMatch(.*)*',
+  name: 'Any',
+  meta: {
+    title: '任意路由', //左侧菜单标题
+    hidden: true, //隐藏标题
+    icon: 'Promotion',
+  },
+  redirect: '/404',
+}
